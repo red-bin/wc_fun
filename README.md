@@ -7,6 +7,7 @@ The command line is a little bit finicky. I'll fix up the readme soon and add a 
 ##Requirements:
     numactl -- on remote machines
     mawk -- on all machines (or change the script for awk/gawk)
+    parallel -- on master machine
 
 ##Advantages:
 
