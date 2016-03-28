@@ -17,7 +17,7 @@ Uses mawk - if needed, this can be changed to mawk.
 
 ## Single remote host:
 ```
-[matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S192.168.82.140 ~/A50462_TcktsIssdSince2009.txt 
+[matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S111.111.111.111 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
 14960071 pas
 11675100 paid
