@@ -22,7 +22,7 @@ It took a lot of tweaking to get this to work between my server and laptop. Hope
 
 ssh keys can be a pain
 
-Uses mawk - if needed, this can be changed to mawk.
+Uses mawk - if needed, this can be changed to awk.
 
 ```
 $ ls -lrth A50462_TcktsIssdSince2009.txt 
