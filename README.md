@@ -1,20 +1,21 @@
-Mock wc using parallel along with pipes for threading
-Using stdin/out seems to act as a decent throttle in
-preventing cpu/netork bottlenecks.
+Essentially a non-alphanumeric wc that uses parallel with ssh for more power. The local host is used to send data over ssh and de-serialize the data that comes back.  This gives pretty good performance, since it limits bottlenecks.
+
+This is done in a way that everything is kept in transit and is only stored in memoryr as long as it needs to be.  It seems to take very, very little memory to parse fairly large files.
 
 Advantages:
 Natural bottleneck limiting
 Relatively modular
-parallel is annoying to use. Less parallel = good
-Minus mawk, uses standard linux packages.
+Less interaction with parallel!
+mawk is very, very fast.
 
 Disadvantages
 Ssh is slooow.
 cmdline parameters shouldn't be moved around.
 It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most scenarios, though.
 ssh keys can be a pain
+Uses mawk - if needed, this can be changed to mawk.
 
-
+Single remote host:
 [matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S192.168.82.140 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
 14960071 pas
@@ -24,6 +25,8 @@ ssh keys can be a pain
 real    3m51.285s
 user    2m2.660s
 sys     0m35.650s
+
+Remote host and local host:
 [matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S:,192.168.82.140 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
 14960071 pas
@@ -33,6 +36,8 @@ sys     0m35.650s
 real    1m47.393s
 user    3m45.997s
 sys     0m32.080s
+
+Just local host:
 [matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S: ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
 14960071 pas
@@ -43,10 +48,8 @@ real    2m2.515s
 user    4m56.003s
 sys     0m29.477s
 
-[matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S:,32/192.168.82.140 ~/A50462_TcktsIssdSince2009.txt 
-parallel: Warning: ssh to 192.168.82.140 only allows for 28 simultaneous logins.
-parallel: Warning: You may raise this by changing /etc/ssh/sshd_config:MaxStartups and MaxSessions on 192.168.82.140.
-parallel: Warning: Using only 27 connections to avoid race conditions.
+Adding cores speeds it up.... slightly:
+[matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S:,32/111.111.111.111 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
 14960071 pas
 11675100 paid
