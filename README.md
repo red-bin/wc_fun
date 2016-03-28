@@ -3,17 +3,26 @@ Essentially a non-alphanumeric wc that uses parallel with ssh for more power. Th
 This is done in a way that everything is kept in transit and is only stored in memoryr as long as it needs to be.  It seems to take very, very little memory to parse fairly large files.
 
 ##Advantages:
+
 Natural bottleneck limiting
+
 Relatively modular
+
 Less interaction with parallel!
+
 mawk is very, very fast.
 
 ##Disadvantages
--Ssh is slooow.
--cmdline parameters shouldn't be moved around.
--It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most -scenarios, though.
--ssh keys can be a pain
--Uses mawk - if needed, this can be changed to mawk.
+
+Ssh is slooow.
+
+cmdline parameters shouldn't be moved around.
+
+It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most  scenarios, though.
+
+ssh keys can be a pain
+
+Uses mawk - if needed, this can be changed to mawk.
 
 ```
 $ ls -lrth A50462_TcktsIssdSince2009.txt 
