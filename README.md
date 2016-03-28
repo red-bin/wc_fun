@@ -4,6 +4,10 @@ This is done in a way that everything is kept in transit and is only stored in m
 
 The command line is a little bit finicky. I'll fix up the readme soon and add a help doc. For now, the bottom examples might work fine.
 
+##Requirements:
+numactl --- on remote machines
+mawk -- on remote machines (change the script for awk/gawk)
+
 ##Advantages:
 
 Natural bottleneck limiting
@@ -18,9 +22,7 @@ mawk is very, very fast.
 
 Ssh is slooow.
 
-cmdline parameters shouldn't be moved around.
-
-It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most  scenarios, though.
+Settings are defaulted to some pretty decently sane ones. This is on my laptop to a server on my local network, so the settings might need to be tweaked elsewhere.
 
 ssh keys can be a pain
 
