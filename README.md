@@ -10,31 +10,26 @@ The command line is a little bit finicky. I'll fix up the readme soon and add a 
     parallel -- on master machine
 
 ##Advantages:
-
-Natural bottleneck limiting
-
-Relatively modular
-
-Less interaction with parallel!
-
-mawk is very, very fast.
+    Natural bottleneck limiting
+    Takes multiple files
+    Relatively modular
+    Less interaction with parallel!
+    mawk is very, very fast.
 
 ##Disadvantages
 
-Ssh is slooow.
+    Ssh is slooow. Create an ssh config for just this to use a different cypher if security doesn't matter. 
+    Settings might need work. These were the best for my laptop which hosted the file.
+    ssh keys.
+    The requirements are a little annoying, but they should be in most distros' repos.
 
-Settings are defaulted to some pretty decently sane ones. This is on my laptop to a server on my local network, so the settings might need to be tweaked elsewhere.
-
-ssh keys can be a pain
-
-Uses mawk - if needed, this can be changed to awk.
-
+###Test file
 ```
 $ ls -lrth A50462_TcktsIssdSince2009.txt 
 -rw-r--r-- 1 matt matt 2.1G Mar 15 02:36 A50462_TcktsIssdSince2009.txt
 ```
 
-##My normal way without (much) parallelism:
+###My normal way without (much) parallelism:
 ```
 $ time tr '[:upper:]' '[:lower:]' < ~/A50462_TcktsIssdSince2009.txt | sed -r 's/[^A-Za-z0-9]+/\n/g'  | grep . | sort --parallel=2 | uniq -c | sort -nr --parallel=2 | head -4                                                        
 16163337 il
@@ -46,7 +41,7 @@ user    8m59.020s
 sys     0m10.683s
 ```
 
-## Single remote host:
+### Single remote host:
 ```
 $ time ./wordcount.sh -m4 -S111.111.111.111 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
@@ -58,7 +53,7 @@ user    2m2.660s
 sys     0m35.650s
 ```
 
-## Remote host and local host:
+### Remote host and local host:
 ```
 $ time ./wordcount.sh -m4 -S:,192.168.82.140 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
@@ -70,7 +65,7 @@ user    3m45.997s
 sys     0m32.080s
 ```
 
-## Just local host:
+### Just local host:
 ```
 $ time ./wordcount.sh -m4 -S: ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
@@ -82,7 +77,7 @@ user    4m56.003s
 sys     0m29.477s
 ```
 
-##Adding more cores speeds it up.... slightly:
+###Adding more cores speeds it up.... slightly:
 ```
 $ time ./wordcount.sh -m4 -S:,32/111.111.111.111 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
