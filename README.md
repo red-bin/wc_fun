@@ -5,8 +5,8 @@ This is done in a way that everything is kept in transit and is only stored in m
 The command line is a little bit finicky. I'll fix up the readme soon and add a help doc. For now, the bottom examples might work fine.
 
 ##Requirements:
-numactl --- on remote machines
-mawk -- on remote machines (change the script for awk/gawk)
+    numactl --- on remote machines
+    mawk -- on remote machines (change the script for awk/gawk)
 
 ##Advantages:
 
