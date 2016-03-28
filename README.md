@@ -9,11 +9,28 @@ Less interaction with parallel!
 mawk is very, very fast.
 
 ##Disadvantages
-Ssh is slooow.
-cmdline parameters shouldn't be moved around.
-It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most scenarios, though.
-ssh keys can be a pain
-Uses mawk - if needed, this can be changed to mawk.
+-Ssh is slooow.
+-cmdline parameters shouldn't be moved around.
+-It took a lot of tweaking to get this to work between my server and laptop. Hopefully these settings should work for most -scenarios, though.
+-ssh keys can be a pain
+-Uses mawk - if needed, this can be changed to mawk.
+
+```
+$ ls -lrth A50462_TcktsIssdSince2009.txt 
+-rw-r--r-- 1 matt matt 2.1G Mar 15 02:36 A50462_TcktsIssdSince2009.txt
+```
+
+##My normal way without (much) parallelism:
+```
+[matt@chaptop rackspace]$ time tr '[:upper:]' '[:lower:]' < ~/A50462_TcktsIssdSince2009.txt | sed -r 's/[^A-Za-z0-9]+/\n/g'  | grep . | sort --parallel=2 | uniq -c | sort -nr --parallel=2 | head -4                                                        
+16163337 il
+14960071 pas
+11675100 paid
+  9298388 pm
+real    8m20.731s
+user    8m59.020s
+sys     0m10.683s
+```
 
 ## Single remote host:
 ```
@@ -51,7 +68,7 @@ user    4m56.003s
 sys     0m29.477s
 ```
 
-##Adding cores speeds it up.... slightly:
+##Adding more cores speeds it up.... slightly:
 ```
 [matt@chaptop rackspace]$ time ./wordcount.sh -m4 -S:,32/111.111.111.111 ~/A50462_TcktsIssdSince2009.txt 
 16163337 il
